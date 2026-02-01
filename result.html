@@ -1,46 +1,169 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>診断結果</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="result-container">
-  <h1>あなたのヤニタイプ</h1>
-  <h2 id="type"></h2>
-  <p id="desc"></p>
-  <a href="index.html">もう一度診断する</a>
-</div>
-
 <script>
 const results = {
-  SCAQ: "激情ストイック型。感情を切り替えるために吸う。",
-  SCAM: "孤高の余韻型。静かな時間を大切にする。",
-  SCSQ: "社交スパーク型。会話の中で輝く。",
-  SCSM: "エモ共有型。雰囲気を楽しむ。",
+  SCAQ: {
+    name: "激情ストイック型",
+    catch: "感情が溢れたら、火をつけろ",
+    desc: `感情の波がそのまま喫煙欲に直結するタイプ。
+怒り、焦り、不安――気持ちが振り切れた瞬間にタバコを欲する。
+一本吸うことで、感情を強制的に切り替えるストイックさを持つ。`,
+    brand: "セブンスター / ラッキーストライク",
+    scene: "仕事後、トラブル直後、深呼吸代わりに"
+  },
 
-  RCAQ: "完全ルーティン型。生活の一部。",
-  RCAM: "静的習慣型。安定重視。",
-  RCSQ: "喫煙所マスター型。",
-  RCSM: "語り場常連型。",
+  SCAM: {
+    name: "孤高の余韻型",
+    catch: "煙が消えるまでが、あなたの時間",
+    desc: `感情は内側で静かに処理するタイプ。
+タバコは爆発ではなく沈静のための道具。
+一人の時間を守る、孤独耐性が高い人。`,
+    brand: "ピース / ゴールデンバット",
+    scene: "夜、ベランダ、誰もいない場所"
+  },
 
-  SLAQ: "即効リセット型。",
-  SLAM: "気分転換職人型。",
-  SLSQ: "ライト社交型。",
-  SLSM: "空気読み余韻型。",
+  SCSQ: {
+    name: "社交スパーク型",
+    catch: "会話の火付け役",
+    desc: `タバコ＝コミュニケーション。
+誰かと一緒に吸うことでテンションが上がる。
+喫煙所で距離を縮める天才。`,
+    brand: "マールボロ / キャメル",
+    scene: "飲み会、職場の喫煙所"
+  },
 
-  RLAQ: "無意識効率型。",
-  RLAM: "流れ身任せ型。",
-  RLSQ: "同調リラックス型。",
-  RLSM: "余白愛好家型。"
+  SCSM: {
+    name: "エモ共有型",
+    catch: "この空気、うまいな",
+    desc: `雰囲気を味わうタイプ。
+タバコは感情を共有するための演出装置。
+無言でも一緒に吸える相手を大切にする。`,
+    brand: "ピースライト / メビウス",
+    scene: "深夜、語り、静かな路上"
+  },
+
+  RCAQ: {
+    name: "完全ルーティン型",
+    catch: "決まった時間、決まった一本",
+    desc: `喫煙は完全に生活の一部。
+感情よりも時間で吸う。
+変化を嫌い、安定を愛する。`,
+    brand: "メビウス / ウィンストン",
+    scene: "休憩時間、起床後"
+  },
+
+  RCAM: {
+    name: "静的習慣型",
+    catch: "変わらないことが、安心",
+    desc: `吸う理由は特にない。
+でも吸わない理由もない。
+静かな継続を選ぶ人。`,
+    brand: "メビウスライト / キャメルライト",
+    scene: "作業中、ぼーっとした時間"
+  },
+
+  RCSQ: {
+    name: "喫煙所マスター型",
+    catch: "そこ、居場所です",
+    desc: `人が集まる喫煙所が好き。
+ルーティンと人付き合いのバランス型。
+顔が広い。`,
+    brand: "マールボロ / パーラメント",
+    scene: "職場・常連の喫煙所"
+  },
+
+  RCSM: {
+    name: "語り場常連型",
+    catch: "話すために吸ってる説",
+    desc: `タバコは話題の延長。
+一服＝雑談タイム。
+一人ではあまり吸わない。`,
+    brand: "キャメル / ラーク",
+    scene: "長話、終電前"
+  },
+
+  SLAQ: {
+    name: "即効リセット型",
+    catch: "とにかく一回、吸わせろ",
+    desc: `深く考えない。
+欲しいから吸う。
+切り替えがとにかく早い。`,
+    brand: "ラーク / ホープ",
+    scene: "空き時間、移動中"
+  },
+
+  SLAM: {
+    name: "気分転換職人型",
+    catch: "まあ一服するか",
+    desc: `気分転換のプロ。
+生活に軽くタバコを挟む。`,
+    brand: "メビウス / キャメル",
+    scene: "散歩、考え事中"
+  },
+
+  SLSQ: {
+    name: "ライト社交型",
+    catch: "誰かいたら、吸う",
+    desc: `一人ではあまり吸わない。
+人がいると自然に吸う。`,
+    brand: "マールボロライト",
+    scene: "友人と一緒に"
+  },
+
+  SLSM: {
+    name: "空気読み余韻型",
+    catch: "この時間、悪くない",
+    desc: `場の空気を楽しむタイプ。
+吸う・吸わないを雰囲気で決める。`,
+    brand: "ピースライト",
+    scene: "夕方、黄昏時"
+  },
+
+  RLAQ: {
+    name: "無意識効率型",
+    catch: "気づいたら火ついてる",
+    desc: `深く考えない。
+効率重視。
+喫煙＝作業。`,
+    brand: "メビウス / セブンスター",
+    scene: "仕事の合間"
+  },
+
+  RLAM: {
+    name: "流れ身任せ型",
+    catch: "流れで吸ってるだけ",
+    desc: `強いこだわりなし。
+その時の流れが全て。`,
+    brand: "キャメル",
+    scene: "なんとなく"
+  },
+
+  RLSQ: {
+    name: "同調リラックス型",
+    catch: "みんな吸うなら",
+    desc: `同調性が高い。
+一体感を大事にする。`,
+    brand: "マールボロ",
+    scene: "グループ行動"
+  },
+
+  RLSM: {
+    name: "余白愛好家型",
+    catch: "何もしない時間が好き",
+    desc: `吸う時間＝何もしない時間。
+贅沢な余白を楽しむ。`,
+    brand: "ピース",
+    scene: "休日、昼下がり"
+  }
 };
 
 const type = localStorage.getItem("yaniType");
-document.getElementById("type").textContent = type;
-document.getElementById("desc").textContent = results[type];
-</script>
+const data = results[type];
 
-</body>
-</html>
+document.getElementById("type").innerHTML =
+  `${type}｜${data.name}<br><small>${data.catch}</small>`;
+
+document.getElementById("desc").innerHTML = `
+  <p>${data.desc.replace(/\n/g, "<br>")}</p>
+  <p><strong>おすすめ銘柄：</strong>${data.brand}</p>
+  <p><strong>ベストシーン：</strong>${data.scene}</p>
+`;
+</script>
