@@ -1,4 +1,16 @@
 <script>
+const type = localStorage.getItem("yaniType");
+
+if (!type) {
+  document.body.innerHTML = `
+    <div style="color:#fff; text-align:center; margin-top:80px;">
+      <h1>診断結果が見つかりません</h1>
+      <a href="index.html" style="color:#c9a96a;">診断をはじめる</a>
+    </div>
+  `;
+} else {
+
+<script>
 const results = {
   SCAQ: {
     name: "激情ストイック型",
@@ -167,3 +179,6 @@ document.getElementById("desc").innerHTML = `
   <p><strong>ベストシーン：</strong>${data.scene}</p>
 `;
 </script>
+}
+</script>
+
